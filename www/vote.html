@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html>
 	<head>
+		<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 		<link rel="shortcut icon" href="https://vote.erbenlab.com/images/like.ico" type="image/icon">
    		<link href="https://vote.erbenlab.com/css/style.css" rel="stylesheet" type="text/css" />
    		<link rel="stylesheet" href="https://vote.erbenlab.com/css/reveal.css">
 
-   		<script type="text/javascript" src="https://vote.erbenlab.com/jquery.reveal.js"></script>
-   		
-		<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+   		 <script src="js/jquery-1.8.2.min.js"></script>
+         <script src="js/jquery.mobile-1.2.0.min.js"></script>
     </head>
 	<body>
 	
@@ -17,7 +17,27 @@
 	<div id="cont_fb">
 	</div>
 <script>
-	
+function manuualy_load(){
+	alert();
+	$.ajax({
+		type: 'GET',
+		url: 'https://vote.erbenlab.com/vote_mobile/get_votes.php',
+		dataType: 'jsonp',
+		jsonp: 'jsoncallback',
+		timeout: 5000000,
+		success: function(data){
+			alert();
+			document.getElementById("cont_fb").innerHTML=data.res;
+			//document.getElementById('id_user').value= window.user_id;
+			var null_va=" ";
+				
+		},
+		error: function(){
+			alert('There was an error loading the data.');
+		}
+	});
+}
+
 function load_vote(x)
   {
  
@@ -233,27 +253,7 @@ img.src = imgsrc;
 
 } 
 //var user_id=window.localStorage.getItem("user_id");
-function manuualy_load(){
-	alert();
-	$.ajax({
-		type: 'GET',
-		url: 'https://vote.erbenlab.com/vote_mobile/get_votes.php',
-		dataType: 'jsonp',
-		jsonp: 'jsoncallback',
-		timeout: 5000000,
-		success: function(data){
-			alert();
-			document.getElementById("cont_fb").innerHTML=data.res;
-			//document.getElementById('id_user').value= window.user_id;
-			var null_va=" ";
-			load_vote(null_va);
-				
-		},
-		error: function(){
-			alert('There was an error loading the data.');
-		}
-	});
-}
+
 
 
 
