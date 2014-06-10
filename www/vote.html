@@ -31,7 +31,7 @@ function load_vote(x)
 		data:{v_id:com},
 		dataType: 'jsonp',
 		jsonp: 'jsoncallback',
-		timeout: 500000,
+		timeout: 5000000,
 		success: function(data){
 			load_vote_x(data.res);
 		},
@@ -240,7 +240,7 @@ window.onload=function(){
 		url: 'https://vote.erbenlab.com/vote_mobile/get_votes.php',
 		dataType: 'jsonp',
 		jsonp: 'jsoncallback',
-		timeout: 500000,
+		timeout: 5000000,
 		success: function(data){
 			alert();
 			document.getElementById("cont_fb").innerHTML=data.res;
@@ -250,7 +250,7 @@ window.onload=function(){
 				
 		},
 		error: function(){
-			output.text('There was an error loading the data.');
+			alert('There was an error loading the data.');
 		}
 	});
 };
