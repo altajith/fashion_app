@@ -6,10 +6,10 @@
         id        = "com.phonegap.helloworld"
         version   = "1.0.0">
 
-    <name>Voting Pole</name>
+    <name>Voting Poll</name>
 
     <description>
-        Hello World sample application that responds to the deviceready event.
+        Most Popular Fashion Designer for Zainab Ammarah's Up & Coming Fashion Designer 2014.
     </description>
 
     <author href="https://www.erbenlab.com" email="support@erbenlab.com">
