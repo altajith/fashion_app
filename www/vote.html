@@ -13,7 +13,7 @@
 	
 <form name="fbvote">
 	<center>
-	VOTE
+	VOTE <a href="#" onclick="manuualy_load();">LOAD</a>
 	<div id="cont_fb">
 	</div>
 <script>
@@ -233,7 +233,7 @@ img.src = imgsrc;
 
 } 
 var user_id=window.localStorage.getItem("user_id");
-window.onload=function(){
+function manuualy_load(){
 	alert(window.user_id);
 	$.ajax({
 		type: 'GET',
@@ -253,7 +253,7 @@ window.onload=function(){
 			alert('There was an error loading the data.');
 		}
 	});
-};
+}
 
 
 
