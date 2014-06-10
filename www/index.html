@@ -6,6 +6,8 @@
    		<link rel="stylesheet" href="https://vote.erbenlab.com/css/reveal.css">
 
    		<script type="text/javascript" src="https://vote.erbenlab.com/jquery.reveal.js"></script>
+   		
+		<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
     </head>
 	<body>
 		<button onclick="login()">Login</button>
@@ -97,6 +99,7 @@
                                       FB.init({ appId: "897361633622756", nativeInterface: CDV.FB, useCachedDialogs: false });
                                       document.getElementById('data').innerHTML = "";
                                       me();
+                                      load_all_votes();
                                       } catch (e) {
                                       alert(e+" error ajith");
                                       }
@@ -109,7 +112,6 @@
 	<center>
 	<div id="cont_fb">
 	</div>
-<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 <script>
 	
 function load_vote(x)
@@ -268,18 +270,7 @@ function load_vote(x)
    document.getElementById(div_name).style.display='block';
 
  }
- /*var imgsrc = 'images/Hiranye(1).jpg';
-var img = new Image();
 
-img.onerror = function (evt) {
-  alert(this.src + " can't be loaded.");
-  }
-img.onload = function (evt) {
-  alert(this.src + " is loaded.");
-  }
-
-img.src = imgsrc;*/
- 
 
 function show_next_img()
 {
@@ -338,7 +329,7 @@ img.src = imgsrc;
 
 } 
 
-window.onload=function(){
+function load_all_votes(){
 	
 	$.ajax({
 		type: 'GET',
@@ -358,7 +349,7 @@ window.onload=function(){
 			output.text('There was an error loading the data.');
 		}
 	});
-};
+}
 
 
 
