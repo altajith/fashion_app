@@ -4,7 +4,7 @@
     </head>
 	<body>
 		<!--<button onclick="getSession()">Get session</button>-->me
-		<button onclick="me()">Vote Now</button>
+		<button onclick="noew()">Vote Now</button>
 		<button onclick="login()">Login</button>
 		<button onclick="logout()">Logout</button>
 		<button onclick="facebookWallPost()">Share Us</button>
@@ -16,7 +16,7 @@
         <!-- cordova -->
 		<script src="phonegap.js"></script>
 	    <!-- cordova facebook plugin -->
-		<script charset="utf-8" src="cdv-plugin-fb-connect.js"></script>
+		<script src="cdv-plugin-fb-connect.js"></script>
 	    <!-- facebook js sdk -->
 		<script  src="facebook-js-sdk.js"></script>
         
@@ -55,15 +55,8 @@
                                   });
             }
             
-            function me() {
-                FB.api('/me', function(response) {
-                	if (response.error) {
-                		facebookWallPost();
-					}else{
-                		window.localStorage.setItem("user_id", response.id);
-						window.location.href="vote.html";
-					}
-				});
+            function noew() {
+               window.location.href="vote.html";
             }
             
             function logout() {
@@ -86,7 +79,7 @@
 		
 							console.log('User cancelled login or did not fully authorize.');
 					}
-				}, {scope: ''});
+				}, {scope: 'email'});
           	}
 			
 			
@@ -101,7 +94,7 @@
 				  };
 				console.log(params);
 			    FB.ui(params, function(obj) {
-			     	console.log(obj);
+			     	alert(obj);
 			    });
 			}
             
