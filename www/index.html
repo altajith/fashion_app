@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<link rel="shortcut icon" href="https://vote.erbenlab.com/images/like.ico" type="image/icon">
+   		<link href="https://vote.erbenlab.com/css/style.css" rel="stylesheet" type="text/css" />
+   		<link rel="stylesheet" href="https://vote.erbenlab.com/css/reveal.css">
+
+   		<script type="text/javascript" src="https://vote.erbenlab.com/jquery.reveal.js"></script>
+   		
+    </head>
+	<body>
+		<button onclick="login()">Login</button>
+		<button onclick="me()">Me</button>
+		<!--<button onclick="getSession()">Get session</button>-->
+		<button onclick="getLoginStatus()">Get login</button>
+		<button onclick="logout()">Logout</button>
+		<button onclick="facebookWallPost()">facebookWallPost</button>
+		<button onclick="publishStoryFriend()">friendstory</button>
+        
+        <div id="data">loading ...</div>
+        
+        <!--<script src="http://localhost:8080/target/target-script-min.js#anonymous"></script>-->
+        <div id="fb-root"></div>
+        <!-- cordova -->
+		<script src="phonegap.js"></script>
+	    <!-- cordova facebook plugin -->
+		<script src="cdv-plugin-fb-connect.js"></script>
+	    <!-- facebook js sdk -->
+		<script src="facebook-js-sdk.js"></script>
+        
+		<script>
+            if ((typeof cordova == 'undefined') && (typeof Cordova == 'undefined')) alert('Cordova variable does not exist. Check that you have included cordova.js correctly');
+            if (typeof CDV == 'undefined') alert('CDV variable does not exist. Check that you have included cdv-plugin-fb-connect.js correctly');
+            if (typeof FB == 'undefined') alert('FB variable does not exist. Check that you have included the Facebook JS SDK file.');
+            
+            FB.Event.subscribe('auth.login', function(response) {
+                               alert('auth.login event');
+                               });
+            
+            FB.Event.subscribe('auth.logout', function(response) {
+                               alert('auth.logout event');
+                               });
+            
+            FB.Event.subscribe('auth.sessionChange', function(response) {
+                               alert('auth.sessionChange event');
+                               });
+            
+            FB.Event.subscribe('auth.statusChange', function(response) {
+                               alert('auth.statusChange event');
+                               });
+            
+            function getLoginStatus() {
+                FB.getLoginStatus(function(response) {
+                    if (response.status == 'connected') {
+                        alert('logged in');
+                    } else {
+                        alert('not logged in');
+                    }
+                });
+            }
+            
+            function me() {
+                FB.api('/me', { fields: 'id' },  function(response) {
+                	if (response.error) {
+                       alert(JSON.stringify(response.error));
+                    } else {
+                       window.localStorage.setItem("user_id", response.id);
+                       window.location.href="vote.html";
+                    }
+                });
+            }
+            
+            function logout() {
+                FB.logout(function(response) {
+                          alert('logged out');
+                });
+            }
+            
+            function login() {
+                FB.login(
+                	function(response) {
+                    	if (response.session) {
+                         	alert('logged in');
+                         	//document.getElementById("fb_frame").setAttribute("src","https://vote.erbenlab.com/");
+                         	//document.getElementById("fb_frame").setAttribute("style","width:100%; height:100%;");
+                         } else {
+                         	alert('not logged in');
+                         	//document.getElementById("fb_frame").setAttribute("src","");
+                         	//document.getElementById("fb_frame").setAttribute("style","width:0px; height:0px;");
+                         }
+                },{ scope: "email" });
+            }
+			
+            
+            document.addEventListener('deviceready', function() {
+                                      try {
+                                      alert('Device is ready! Make sure you set your app_id below this alert.');
+                                      FB.init({ appId: "897361633622756", nativeInterface: CDV.FB, useCachedDialogs: false });
+                                      document.getElementById('data').innerHTML = "";
+                                      me();
+                                      } catch (e) {
+                                      alert(e+" error ajith");
+                                      }
+                                      }, false);
+            </script>
+        <div id="log">
+        </div>
+
+</body>
+</html>
