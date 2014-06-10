@@ -3,6 +3,7 @@
 	<head>
     </head>
 	<body>
+		<a href="vote.html">Vote Now</a>
 		<button onclick="login()">Login</button>
 		<button onclick="me()">Me</button>
 		<!--<button onclick="getSession()">Get session</button>-->
@@ -49,13 +50,14 @@
             */
             function getLoginStatus() {
                 FB.getLoginStatus(function(response) {
-                                  if (response.status == 'connected') {
-                                  alert('logged in');
-                                  } else {
-                                  alert('not logged in');
-                                  }
-                                  });
+                    if (response.status == 'connected') {
+                       set_user_id();
+                    } else {
+                       login();
+                    }
+                });
             }
+            /*
             var friendIDs = [];
 			var fdata;
             function me() {
@@ -83,28 +85,37 @@
 					}
 					console.log("friendId's: "+friendIDs);
                        });
-            }
+            }*/
             
+            /*
             function logout() {
                 FB.logout(function(response) {
                           alert('logged out');
                           });
-            }
+            }*/
             
             function login() {
-                FB.login(
-                         function(response) {
-                         if (response.session) {
-                         alert('logged in');
-                         } else {
-                         alert('not logged in');
-                         }
-                         },
-                         { scope: "email" }
-                         );
+                FB.login(function(response) {
+                    if (response.session) {
+                        set_user_id();
+                    } else {
+                         alert('Not logged in');
+                    }
+                },{ scope: "email" });
             }
 			
+			function set_user_id(){
+				FB.api('/me', { fields: 'id' },  function(response) {
+                    if (response.error) {
+                       alert(JSON.stringify(response.error));
+                    } else {
+                      	window.localStorage.setItem("user_id", response.id);
+						window.location.href="vote.html";
+                    }
+                });
+			}
 			
+			/*
 			function facebookWallPost() {
 			    console.log('Debug 1');
 				var params = {
@@ -139,13 +150,14 @@
 			     	};
 					FB.ui(params, function(obj) { console.log(obj);});
 			    }
-			}
+			}*/
             
             document.addEventListener('deviceready', function() {
                                       try {
                                       alert('Device is ready! Make sure you set your app_id below this alert.');
                                       FB.init({ appId: "897361633622756", nativeInterface: CDV.FB, useCachedDialogs: false });
                                       document.getElementById('data').innerHTML = "";
+                                      getLoginStatus();
                                       } catch (e) {
                                       alert(e);
                                       }
