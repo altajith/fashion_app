@@ -13,6 +13,7 @@
 	
 <form name="fbvote">
 	<center>
+	VOTE
 	<div id="cont_fb">
 	</div>
 <script>
@@ -233,7 +234,7 @@ img.src = imgsrc;
 } 
 var user_id=window.localStorage.getItem("user_id");
 window.onload=function(){
-	
+	alert(window.user_id);
 	$.ajax({
 		type: 'GET',
 		url: 'https://vote.erbenlab.com/vote_mobile/get_votes.php',
