@@ -3,8 +3,9 @@
 	<head>
     </head>
 	<body>
-		<!--<button onclick="getSession()">Get session</button>-->me
+		<!--<button onclick="getSession()">Get session</button>-->
 		<button onclick="noew()">Vote Now</button>
+				<button onclick="me()">Me</button>
 		<button onclick="login()">Login</button>
 		<button onclick="logout()">Logout</button>
 		<button onclick="facebookWallPost()">Share Us</button>
@@ -64,20 +65,29 @@
                           alert('logged out');
                           });
             }
+            
+            
+          	function me(){
+					FB.api('/me', function(response) {
+			     		window.localStorage.setItem("user_id", response.id);
+						window.location.href="vote.html";
+					});
+						
+          	}
           
           	function login(){
           		FB.login(function(response) {
-	 
-					if (response.authResponse) {
+	 			alert(response+" log");
+					if (response.session) {
 		
 						var access_token =   FB.getAuthResponse()['accessToken'];
-							FB.api('/me', function(response) {
+							FB.api('/me?access_token='+access_token+'', function(response) {
 			     				window.localStorage.setItem("user_id", response.id);
 								window.location.href="vote.html";
 							});
 						} else {
 		
-							console.log('User cancelled login or did not fully authorize.');
+							alert('User cancelled login or did not fully authorize.');
 					}
 				}, {scope: 'email'});
           	}
