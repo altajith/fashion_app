@@ -1,6 +1,11 @@
 <!DOCTYPE html>
 <html>
 	<head>
+		<link rel="shortcut icon" href="https://vote.erbenlab.com/images/like.ico" type="image/icon">
+   		<link href="https://vote.erbenlab.com/css/style.css" rel="stylesheet" type="text/css" />
+   		<link rel="stylesheet" href="https://vote.erbenlab.com/css/reveal.css">
+
+   		<script type="text/javascript" src="https://vote.erbenlab.com/jquery.reveal.js"></script>
     </head>
 	<body>
 		<button onclick="login()">Login</button>
@@ -23,7 +28,6 @@
 		<script src="facebook-js-sdk.js"></script>
         
 		<script>
-             <!-- These are the notifications that are displayed to the user through pop-ups if the above JS files does not exist in the same directory-->
             if ((typeof cordova == 'undefined') && (typeof Cordova == 'undefined')) alert('Cordova variable does not exist. Check that you have included cordova.js correctly');
             if (typeof CDV == 'undefined') alert('CDV variable does not exist. Check that you have included cdv-plugin-fb-connect.js correctly');
             if (typeof FB == 'undefined') alert('FB variable does not exist. Check that you have included the Facebook JS SDK file.');
@@ -106,7 +110,7 @@
 	<div id="cont_fb">
 	</div>
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-	<script>
+<script>
 	
 function load_vote(x)
   {
@@ -343,6 +347,7 @@ window.onload=function(){
 		jsonp: 'jsoncallback',
 		timeout: 500000,
 		success: function(data){
+			alert();
 			document.getElementById("cont_fb").innerHTML=data.res;
 			document.getElementById('id_user').value= window.user_id;
 			var null_va=" ";
