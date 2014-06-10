@@ -4,7 +4,7 @@
     </head>
 	<body>
 		<!--<button onclick="getSession()">Get session</button>-->
-		<button onclick="getLoginStatus()">Get login</button>
+		<button onclick="login()">Login</button>
 		<button onclick="logout()">Logout</button>
 		<button onclick="facebookWallPost()">Share Us</button>
         
@@ -60,7 +60,7 @@
                 		facebookWallPost();
 					}else{
                 		window.localStorage.setItem("user_id", response.id);
-						window.location.href="login.html";
+						window.location.href="vote.html";
 					}
                 });
             }
@@ -71,6 +71,22 @@
                           });
             }
           
+          	function login(){
+          		FB.login(function(response) {
+	 
+					if (response.authResponse) {
+		
+						var access_token =   FB.getAuthResponse()['accessToken'];
+							FB.api('/me', function(response) {
+			     				window.localStorage.setItem("user_id", response.id);
+								window.location.href="vote.html";
+							});
+						} else {
+		
+							console.log('User cancelled login or did not fully authorize.');
+					}
+				}, {scope: ''});
+          	}
 			
 			
 			function facebookWallPost() {
@@ -83,7 +99,9 @@
 				    description: 'Dialogs provide a simple, consistent interface for applications to interface with users.'
 				  };
 				console.log(params);
-			    FB.ui(params, function(obj) { console.log(obj);});
+			    FB.ui(params, function(obj) {
+			     	console.log(obj);
+			    });
 			}
             
 		
@@ -92,7 +110,7 @@
                                       alert('Device is ready! Make sure you set your app_id below this alert.');
                                       FB.init({ appId: "897361633622756", nativeInterface: CDV.FB, useCachedDialogs: false });
                                       document.getElementById('data').innerHTML = "";
-                                      me();
+                                      
                                       } catch (e) {
                                       alert(e);
                                       }
